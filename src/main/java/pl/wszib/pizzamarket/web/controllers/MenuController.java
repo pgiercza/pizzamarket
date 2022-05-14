@@ -2,13 +2,15 @@ package pl.wszib.pizzamarket.web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.wszib.pizzamarket.data.entity.PizzaEntity;
-import pl.wszib.pizzamarket.repositories.PizzaRepository;
+import pl.wszib.pizzamarket.data.repositories.PizzaRepository;
+import pl.wszib.pizzamarket.services.OrderService;
 import pl.wszib.pizzamarket.web.models.OrderAddressModel;
 
 import javax.persistence.EntityNotFoundException;
-import java.text.AttributedString;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -16,9 +18,11 @@ import java.util.List;
 public class MenuController {
 
     private final PizzaRepository pizzaRepository;
+    private final OrderService orderService;
 
-    public MenuController(PizzaRepository pizzaRepository) {
+    public MenuController(PizzaRepository pizzaRepository, OrderService orderService) {
         this.pizzaRepository = pizzaRepository;
+        this.orderService = orderService;
     }
 
     @GetMapping
@@ -37,7 +41,19 @@ public class MenuController {
         return "orderPizzaPage";
     }
 
+    @PostMapping("order/{pizzaId}")
+    public String processPizzaOrder(@PathVariable Long pizzaId,
+                                    @ModelAttribute("orderAddress") @Valid OrderAddressModel orderAddress,
+                                    BindingResult bindingResult,
+                                    Model model
+    ){
+        if(bindingResult.hasErrors()){
+            PizzaEntity pizza= pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
+            model.addAttribute("pizza",pizza);
+            return "orderPizzaPage";
+        }
+        orderService.saveOrder(pizzaId,orderAddress);
+        return "redirect:/menu";
 
-
-
+    }
 }
