@@ -3,7 +3,7 @@ package pl.wszib.pizzamarket.data.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class OrderEntity {
 
     @Id

@@ -26,9 +26,9 @@ public class OrdersController {
     }
 
     @GetMapping
-    public String showPizaMenu(Model model){
-        List<OrderEntity> orders=orderRepository.findAll();
-        model.addAttribute("orders",orders);
+    public String showPizaMenu(Model model) {
+        List<OrderEntity> orders = orderRepository.findAll();
+        model.addAttribute("orders", orders);
         return "ordersListPage";
     }
 

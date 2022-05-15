@@ -23,12 +23,11 @@ public class OrderService {
     }
 
 
-
-@Transactional
-    public void saveOrder(Long pizzaId, OrderAddressModel orderAddressModel){
-        OrderAdresEntity orderAddressEntity= OrderAddressMapper.toEntity(orderAddressModel);
-        PizzaEntity pizzaEntity= pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
-        OrderEntity orderEntity=new OrderEntity();
+    @Transactional
+    public void saveOrder(Long pizzaId, OrderAddressModel orderAddressModel) {
+        OrderAdresEntity orderAddressEntity = OrderAddressMapper.toEntity(orderAddressModel);
+        PizzaEntity pizzaEntity = pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
+        OrderEntity orderEntity = new OrderEntity();
         orderEntity.setPizzaName(pizzaEntity.getName());
         orderEntity.setOrderAdress(orderAddressEntity);
         orderRepository.save(orderEntity);

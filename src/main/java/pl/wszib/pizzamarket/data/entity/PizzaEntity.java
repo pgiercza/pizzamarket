@@ -5,19 +5,19 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
-@Table(name="pizzas")
+@Table(name = "pizzas")
 public class PizzaEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="price")
+    @Column(name = "price")
     private BigDecimal price;
     @ManyToMany
-    @JoinTable(name = "pizza_ingredients",joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name="ingredient_id"))
+    @JoinTable(name = "pizza_ingredients", joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
 
     private Set<IngredientsEntity> ingredients;
 

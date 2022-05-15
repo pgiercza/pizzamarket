@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/delivery")
 public class DeliveryController {
     @GetMapping
-    public String showDeliveryPage(){
-        return"deliveryPage";
+    public String showDeliveryPage() {
+        return "deliveryPage";
     }
 
 }
