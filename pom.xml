@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>pizzamarket</name>
 	<description>Pizza Market application</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
