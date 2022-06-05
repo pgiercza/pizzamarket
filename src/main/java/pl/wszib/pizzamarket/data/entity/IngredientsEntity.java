@@ -7,9 +7,9 @@ import javax.persistence.*;
 public class IngredientsEntity {
     @Id
     @GeneratedValue
-    @Column(name="id")
-    private  Long id;
-    @Column(name="name")
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "name")
     private String name;
 
     public Long getId() {

@@ -26,18 +26,19 @@ public class MenuController {
     }
 
     @GetMapping
-    public String showPizaMenu(Model model){
-        List<PizzaEntity> pizzas=pizzaRepository.findAll();
-        model.addAttribute("pizzas",pizzas);
+    public String showPizaMenu(Model model) {
+        List<PizzaEntity> pizzas = pizzaRepository.findAll();
+        model.addAttribute("pizzas", pizzas);
         return "menuPage";
     }
+
     @GetMapping("order/{pizzaId}")
     public String showPizzaOrderPage(
             @PathVariable Long pizzaId,
             @ModelAttribute("orderAddress") OrderAddressModel orderAddress,
-            Model model){
-        PizzaEntity pizza= pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
-        model.addAttribute("pizza",pizza);
+            Model model) {
+        PizzaEntity pizza = pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
+        model.addAttribute("pizza", pizza);
         return "orderPizzaPage";
     }
 
@@ -46,14 +47,15 @@ public class MenuController {
                                     @ModelAttribute("orderAddress") @Valid OrderAddressModel orderAddress,
                                     BindingResult bindingResult,
                                     Model model
-    ){
-        if(bindingResult.hasErrors()){
-            PizzaEntity pizza= pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
-            model.addAttribute("pizza",pizza);
+    ) {
+        if (bindingResult.hasErrors()) {
+            PizzaEntity pizza = pizzaRepository.findById(pizzaId).orElseThrow(EntityNotFoundException::new);
+            model.addAttribute("pizza", pizza);
             return "orderPizzaPage";
         }
-        orderService.saveOrder(pizzaId,orderAddress);
+        orderService.saveOrder(pizzaId, orderAddress);
         return "redirect:/menu";
 
     }
+
 }
