@@ -1,38 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{layout::template (~{:: .uk-section})}">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="~{layout :: template (~{:: .uk-section})}">
 <head>
 </head>
 <body>
 <div class="uk-section">
-    <div class="uk-container uk-container-small">
-        <h1 class="uk-heading-bullet">Zamówienia</h1>
-        <table class="uk-table uk-table-striped">
-            <tbody>
+    <h1 class="uk-heading-bullet">Lista Zamówień</h1>
 
-            <tr th:each="order : ${orders}">
-                <td class="uk-flex uk-flex-column">
-                    <div th:text="|${order.orderAdress.firstName} ${order.orderAdress.lastName}|"></div>
-                    <div class="uk-text-meta">
-                        <span th:text="${order.orderAdress.street}"></span>
-                    </div>
-                    <div class="uk-text-meta">
-                        <span th:text="|${order.orderAdress.postalCode} ${order.orderAdress.city}|"></span>
-                    </div>
-
-
-                </td>
-
-                <td class="uk-width-1-4">
-                    <div class="uk-text-bold uk-margin-small" th:text="${order.pizzaName}"></div>
-                </td>
-
-
-            </tr>
-
-            </tbody>
-        </table>
+    <div class="uk-child-width-1-3@s uk-text-center" uk-grid>
+        <p class="uk-text-bold uk-card-body">Pizza</p>
+        <p class="uk-text-bold uk-card-body">Imię i Nazwisko</p>
+        <p class="uk-text-bold uk-card-body">Adres Dostawy</p>
+    </div>
+    <div class="uk-child-width-1-3@s uk-text-center uk-card-default uk-card-hover uk-margin-small"
+         th:each="order : ${orders}" uk-grid>
+        <div class="uk-card-body ">
+            <div class="uk-text-center" th:text="${order.pizzaName}"></div>
+        </div>
+        <div class="uk-card-body ">
+            <div class="uk-text-center"
+                 th:text="${order.orderAdress.getFirstName()} + ' ' + ${order.orderAdress.getLastName()}"></div>
+        </div>
+        <div class="uk-card-body ">
+            <div class=" uk-text-center"
+                 th:text="${order.orderAdress.getStreet()} +', ' +${order.orderAdress.getPostalCode()} + ' ' + ${order.orderAdress.getCity()}"></div>
+        </div>
     </div>
 </div>
-
 </body>
 </html>
